@@ -20,6 +20,8 @@ Well, there a lot of things I can imagine right now, like:
 - Performance analyzers
 - Navigation visualizers
 
+This is fork  its [HarSharp](https://github.com/giacomelli/HarSharp) Was added  parametr "URI" in to "Response" class.
+
 ## Setup
 
 #### NuGet

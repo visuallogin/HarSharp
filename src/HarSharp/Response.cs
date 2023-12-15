@@ -29,6 +29,12 @@ namespace HarSharp
         public Content Content { get; set; }
 
         /// <summary>
+        /// Get or set content URL
+        /// </summary>        
+        public string Url { get; set; } = string.Empty;
+
+
+        /// <summary>
         /// Gets or sets the redirection target URL from the Location response header.
         /// </summary>
         public Uri RedirectUrl { get; set; }

@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HarSharp\HarSharp.csproj" />
+    <ProjectReference Include="..\HarSharp\HarSharpFork.csproj" />
   </ItemGroup>
 
   <ItemGroup>
