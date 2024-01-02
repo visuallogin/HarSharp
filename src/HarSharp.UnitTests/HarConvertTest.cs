@@ -1,7 +1,8 @@
 ﻿using System;
+using HarSharp;
 using NUnit.Framework;
 
-namespace HarSharp.UnitTests
+namespace VisualLogin.HarSharp.UnitTests
 {
     [TestFixture]
     public class HarConvertTest
@@ -24,74 +25,74 @@ namespace HarSharp.UnitTests
         public void Deserialize_HarContent_Log()
         {
             var log = m_actual.Log;
-            Assert.AreEqual("1.2", log.Version);
+            Assert.That("1.2", Is.EqualTo(log.Version));
 
             var creator = log.Creator;
-            Assert.AreEqual("WebInspector", creator.Name);
-            Assert.AreEqual("537.36", creator.Version);
+            Assert.That("WebInspector", Is.EqualTo(creator.Name));
+            Assert.That("537.36", Is.EqualTo(creator.Version));
 
             var browser = log.Browser;
-            Assert.IsNull(browser);
+            Assert.That(browser, Is.Null);
 
             var pages = log.Pages;
 
-            Assert.AreEqual(3, pages.Count);
+            Assert.That(3, Is.EqualTo(pages.Count));
 
-            Assert.AreEqual("used by unit test", log.Comment);
+            Assert.That("used by unit test", Is.EqualTo(log.Comment));
         }
 
         [Test]
         public void Deserialize_HarContent_Creator()
         {
             var creator = m_actual.Log.Creator;
-            Assert.AreEqual("WebInspector", creator.Name);
-            Assert.AreEqual("537.36", creator.Version);
+            Assert.That("WebInspector", Is.EqualTo(creator.Name));
+            Assert.That("537.36", Is.EqualTo(creator.Version));
         }
 
         [Test]
         public void Deserialize_HarContent_Browser()
         {
             var browser = m_actual.Log.Browser;
-            Assert.IsNull(browser);
+            Assert.That(browser, Is.Null);
         }
 
         [Test]
         public void Deserialize_HarContent_Pages()
         {
             var pages = m_actual.Log.Pages;
-            Assert.AreEqual(3, pages.Count);
+            Assert.That(3, Is.EqualTo(pages.Count));
 
             var page = pages[0];
-            Assert.AreEqual(new DateTime(2014, 9, 24, 18, 39, 52, 160, DateTimeKind.Utc), page.StartedDateTime);
-            Assert.AreEqual("page_2", page.Id);
-            Assert.AreEqual("https://www.google.com/", page.Title);
-            Assert.AreEqual(2423.999786376953, page.PageTimings.OnContentLoad);
-            Assert.AreEqual(2423.999786376953, page.PageTimings.OnLoad);
+            Assert.That(new DateTime(2014, 9, 24, 18, 39, 52, 160, DateTimeKind.Utc), Is.EqualTo(page.StartedDateTime));
+            Assert.That("page_2", Is.EqualTo(page.Id));
+            Assert.That("https://www.google.com/", Is.EqualTo(page.Title));
+            Assert.That(2423.999786376953, Is.EqualTo(page.PageTimings.OnContentLoad));
+            Assert.That(2423.999786376953, Is.EqualTo(page.PageTimings.OnLoad));
 
             page = pages[1];
-            Assert.IsNull(page.PageTimings.OnContentLoad);
-            Assert.IsNull(page.PageTimings.OnLoad);
+            Assert.That(page.PageTimings.OnContentLoad, Is.Null);
+            Assert.That(page.PageTimings.OnLoad, Is.Null);
         }
 
         [Test]
         public void Deserialize_HarContent_Entries()
         {
             var entries = m_actual.Log.Entries;
-            Assert.AreEqual(60, entries.Count);
+            Assert.That(60, Is.EqualTo(entries.Count));
 
             var entry = entries[0];
-            Assert.AreEqual(new DateTime(2014, 9, 24, 18, 39, 52, 160, DateTimeKind.Utc), entry.StartedDateTime);
-            Assert.AreEqual(946.9997882843018, entry.Time);
-            Assert.AreEqual("134139", entry.Connection);
-            Assert.AreEqual("page_2", entry.PageRef);
-            Assert.IsNull(entry.ServerIPAddress);
-            Assert.AreEqual(0, entry.Timings.Blocked);
-            Assert.AreEqual(0, entry.Timings.Dns);
-            Assert.AreEqual(720.0000000011642, entry.Timings.Connect);
-            Assert.AreEqual(0, entry.Timings.Send);
-            Assert.AreEqual(225.99999999874854, entry.Timings.Wait);
-            Assert.AreEqual(0.9997882843890693, entry.Timings.Receive);
-            Assert.AreEqual(548.0000000025029, entry.Timings.Ssl);
+            Assert.That(new DateTime(2014, 9, 24, 18, 39, 52, 160, DateTimeKind.Utc),Is.EqualTo(entry.StartedDateTime));
+            Assert.That(946.9997882843018, Is.EqualTo(entry.Time));
+            Assert.That("134139", Is.EqualTo(entry.Connection));
+            Assert.That("page_2", Is.EqualTo(entry.PageRef));
+            Assert.That(entry.ServerIPAddress, Is.Null);
+            Assert.That(0, Is.EqualTo(entry.Timings.Blocked));
+            Assert.That(0, Is.EqualTo(entry.Timings.Dns));
+            Assert.That(720.0000000011642, Is.EqualTo(entry.Timings.Connect));
+            Assert.That(0, Is.EqualTo(entry.Timings.Send));
+            Assert.That(225.99999999874854, Is.EqualTo(entry.Timings.Wait));
+            Assert.That(0.9997882843890693, Is.EqualTo(entry.Timings.Receive));
+            Assert.That(548.0000000025029, Is.EqualTo(entry.Timings.Ssl));
         }
 
         [Test]
@@ -99,19 +100,19 @@ namespace HarSharp.UnitTests
         {
             var timings = m_actual.Log.Entries[0].Timings;
 
-            Assert.AreEqual(0, timings.Blocked);
-            Assert.AreEqual(0, timings.Dns);
-            Assert.AreEqual(720.0000000011642, timings.Connect);
-            Assert.AreEqual(0, timings.Send);
-            Assert.AreEqual(225.99999999874854, timings.Wait);
-            Assert.AreEqual(0.9997882843890693, timings.Receive);
-            Assert.AreEqual(548.0000000025029, timings.Ssl);
+            Assert.That(0, Is.EqualTo(timings.Blocked));
+            Assert.That(0, Is.EqualTo(timings.Dns));
+            Assert.That(720.0000000011642, Is.EqualTo(timings.Connect));
+            Assert.That(0, Is.EqualTo(timings.Send));
+            Assert.That(225.99999999874854, Is.EqualTo(timings.Wait));
+            Assert.That(0.9997882843890693, Is.EqualTo(timings.Receive));
+            Assert.That(548.0000000025029, Is.EqualTo(timings.Ssl));
 
             timings = m_actual.Log.Entries[1].Timings;
-            Assert.IsNull(timings.Blocked);
-            Assert.IsNull(timings.Dns);
-            Assert.IsNull(timings.Connect);
-            Assert.IsNull(timings.Ssl);
+            Assert.That(timings.Blocked, Is.Null);
+            Assert.That(timings.Dns, Is.Null);
+            Assert.That(timings.Connect, Is.Null);
+            Assert.That(timings.Ssl, Is.Null);
         }
 
         [Test]
@@ -119,114 +120,113 @@ namespace HarSharp.UnitTests
         {
             var cache = m_actual.Log.Entries[0].Cache;
 
-            Assert.AreEqual(new DateTime(2014, 9, 25, 18, 39, 53), cache.BeforeRequest.Expires);
-            Assert.AreEqual(new DateTime(2014, 9, 24, 17, 39, 53), cache.BeforeRequest.LastAccess);
-            Assert.AreEqual("test1", cache.BeforeRequest.ETag);
-            Assert.AreEqual(1, cache.BeforeRequest.HitCount);
-            Assert.IsNotNull(cache.BeforeRequest);
+            Assert.That(new DateTime(2014, 9, 25, 18, 39, 53), Is.EqualTo(cache.BeforeRequest.Expires));
+            Assert.That(new DateTime(2014, 9, 24, 17, 39, 53), Is.EqualTo(cache.BeforeRequest.LastAccess));
+            Assert.That("test1", Is.EqualTo(cache.BeforeRequest.ETag));
+            Assert.That(1, Is.EqualTo(cache.BeforeRequest.HitCount));
+            Assert.That(cache.BeforeRequest, Is.Not.Null);
 
-            Assert.IsNotNull(cache.AfterRequest);
-            Assert.AreEqual(new DateTime(2014, 9, 26, 19, 39, 53), cache.AfterRequest.Expires);
-            Assert.AreEqual(new DateTime(2014, 9, 25, 18, 39, 53), cache.AfterRequest.LastAccess);
-            Assert.AreEqual("test2", cache.AfterRequest.ETag);
-            Assert.AreEqual(2, cache.AfterRequest.HitCount);
+            Assert.That(cache.AfterRequest, Is.Not.Null);
+            Assert.That(new DateTime(2014, 9, 26, 19, 39, 53), Is.EqualTo(cache.AfterRequest.Expires));
+            Assert.That(new DateTime(2014, 9, 25, 18, 39, 53), Is.EqualTo(cache.AfterRequest.LastAccess));
+            Assert.That("test2", Is.EqualTo(cache.AfterRequest.ETag));
+            Assert.That(2, Is.EqualTo(cache.AfterRequest.HitCount));
         }
 
         [Test]
         public void Deserialize_HarContent_Request()
         {
             var request = m_actual.Log.Entries[0].Request;
-            Assert.AreEqual("GET", request.Method);
-            Assert.AreEqual("https://www.google.com/", request.Url.ToString());
-            Assert.AreEqual("HTTP/1.1", request.HttpVersion);
-            Assert.AreEqual(0, request.BodySize);
-            Assert.AreEqual(1542, request.HeadersSize);
+            Assert.That("GET", Is.EqualTo(request.Method));
+            Assert.That("https://www.google.com/", Is.EqualTo(request.Url.ToString()));
+            Assert.That("HTTP/1.1", Is.EqualTo(request.HttpVersion));
+            Assert.That(0, Is.EqualTo(request.BodySize));
+            Assert.That(1542, Is.EqualTo(request.HeadersSize));
         }
 
         [Test]
         public void Deserialize_HarContent_Cookies()
         {
             var cookies = m_actual.Log.Entries[0].Request.Cookies;
-            Assert.AreEqual(9, cookies.Count);
+            Assert.That(9, Is.EqualTo(cookies.Count));
 
             var cookie = cookies[0];
-            Assert.AreEqual("PREF", cookie.Name);
-            Assert.AreEqual("ID=ac8f0e1628ac8f71:U=c1b66ec369dcc09f:FF=0:LD=pt-BR:TM=1409229977:LM=1409230059:GM=1:S=GfV8WG1HURi4SYOq", cookie.Value);
-            Assert.IsFalse(cookie.Expires.HasValue);
-            Assert.IsFalse(cookie.HttpOnly);
-            Assert.IsFalse(cookie.Secure);
+            Assert.That("PREF", Is.EqualTo(cookie.Name));
+            Assert.That("ID=ac8f0e1628ac8f71:U=c1b66ec369dcc09f:FF=0:LD=pt-BR:TM=1409229977:LM=1409230059:GM=1:S=GfV8WG1HURi4SYOq", Is.EqualTo(cookie.Value));
+            Assert.That(cookie.Expires.HasValue, Is.False);
+            Assert.That(cookie.HttpOnly, Is.False);
+            Assert.That(cookie.Secure, Is.False);
 
             cookie = cookies[1];
-            Assert.IsFalse(cookie.HttpOnly);
-            Assert.IsFalse(cookie.Secure);
+            Assert.That(cookie.HttpOnly, Is.False);
+            Assert.That(cookie.Secure, Is.False);
         }
 
         [Test]
         public void Deserialize_HarContent_Headers()
         {
             var headers = m_actual.Log.Entries[0].Request.Headers;
-            Assert.AreEqual(8, headers.Count);
+            Assert.That(8, Is.EqualTo(headers.Count));
 
             var header = headers[0];
-            Assert.AreEqual("Accept-Encoding", header.Name);
-            Assert.AreEqual("gzip,deflate,sdch", header.Value);
+            Assert.That("Accept-Encoding", Is.EqualTo(header.Name));
+            Assert.That("gzip,deflate,sdch", Is.EqualTo(header.Value));
         }
 
         [Test]
         public void Deserialize_HarContent_PostData()
         {
             var postData = m_actual.Log.Entries[0].Request.PostData;
-            Assert.IsNull(postData);
+            Assert.That(postData, Is.Null);
 
             postData = m_actual.Log.Entries[25].Request.PostData;
-            Assert.IsNotNull(postData);
-            Assert.AreEqual("text/ping", postData.MimeType);
-            Assert.AreEqual("PING", postData.Text);
-            Assert.AreEqual("PING", postData.Text);
-            Assert.AreEqual(1, postData.Params.Count);
-            Assert.AreEqual("test.txt", postData.Params[0].FileName);
-            Assert.AreEqual("plain/text", postData.Params[0].ContentType);
+            Assert.That(postData, Is.Not.Null);
+            Assert.That("text/ping", Is.EqualTo(postData.MimeType));
+            Assert.That("PING", Is.EqualTo(postData.Text));
+            Assert.That("PING", Is.EqualTo(postData.Text));
+            Assert.That(1, Is.EqualTo(postData.Params.Count));
+            Assert.That("test.txt", Is.EqualTo(postData.Params[0].FileName));
+            Assert.That("plain/text", Is.EqualTo(postData.Params[0].ContentType));
         }
 
         [Test]
         public void Deserialize_HarContent_QueryString()
         {
             var queryString = m_actual.Log.Entries[1].Request.QueryString;
-            Assert.AreEqual(2, queryString.Count);
+            Assert.That(2, Is.EqualTo(queryString.Count));
 
             var parameter = queryString[0];
-            Assert.AreEqual("gfe_rd", parameter.Name);
-            Assert.AreEqual("cr", parameter.Value);
+            Assert.That("gfe_rd", Is.EqualTo(parameter.Name));
+            Assert.That("cr", Is.EqualTo(parameter.Value));
         }
 
         [Test]
         public void Deserialize_HarContent_Response()
         {
             var response = m_actual.Log.Entries[0].Response;
-            Assert.AreEqual(302, response.Status);
-            Assert.AreEqual("Found", response.StatusText);
-            Assert.AreEqual("HTTP/1.1", response.HttpVersion);
-            Assert.AreEqual("https://www.google.com/unit/test", response.RedirectUrl.ToString());
-            Assert.AreEqual(273, response.HeadersSize);
-            Assert.AreEqual(0, response.BodySize);
+            Assert.That(302, Is.EqualTo(response.Status));
+            Assert.That("Found", Is.EqualTo(response.StatusText));
+            Assert.That("HTTP/1.1", Is.EqualTo(response.HttpVersion));
+            Assert.That("https://www.google.com/unit/test", Is.EqualTo(response.RedirectUrl.ToString()));
+            Assert.That(273, Is.EqualTo(response.HeadersSize));
+            Assert.That(0, Is.EqualTo(response.BodySize));
 
             response = m_actual.Log.Entries[1].Response;
-            Assert.AreEqual("https://www.google.com.br/?gfe_rd=cr&ei=-Q8jVNr2BteqhQTf0oH4Bw", response.RedirectUrl.ToString());
+            Assert.That("https://www.google.com.br/?gfe_rd=cr&ei=-Q8jVNr2BteqhQTf0oH4Bw", Is.EqualTo(response.RedirectUrl.ToString()));
         }
 
         [Test]
         public void Deserialize_HarContent_Content()
         {
             var content = m_actual.Log.Entries[0].Response.Content;
-            Assert.AreEqual(100, content.Size);
-            Assert.AreEqual("text/html", content.MimeType);
-            Assert.AreEqual(10, content.Compression);
-            Assert.AreEqual("UTF-8", content.Encoding);
-            Assert.AreEqual("test content", content.Text);
+            Assert.That(100, Is.EqualTo(content.Size));
+            Assert.That("text/html", Is.EqualTo(content.MimeType));
+            Assert.That(10, Is.EqualTo(content.Compression));
+            Assert.That("UTF-8", Is.EqualTo(content.Encoding));
+            Assert.That("test content", Is.EqualTo(content.Text));
 
             content = m_actual.Log.Entries[1].Response.Content;
-            Assert.IsNull(content.Compression);
-        }        
+            Assert.That(content.Compression, Is.Null);
+        }
     }
 }
-
